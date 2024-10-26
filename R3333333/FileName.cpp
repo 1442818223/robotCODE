@@ -51,9 +51,9 @@ typedef struct nic   //网络接口卡
 	char current[100]{ 0 };
 }*Pnic;
 
-void SendIoctl(HANDLE hDevice, DWORD ioctlCode, PVOID 数据,int 选择) {
+void SendIoctl(HANDLE hDevice, DWORD ioctlCode, PVOID 数据, int 选择) {
 	DWORD returned;
-	
+
 	if (选择 == 1) {
 		PDiskData wd = (PDiskData)数据;
 		BOOL success = DeviceIoControl(
@@ -73,8 +73,8 @@ void SendIoctl(HANDLE hDevice, DWORD ioctlCode, PVOID 数据,int 选择) {
 			std::cout << "Failed to send IOCTL code: " << ioctlCode << ". Error: " << GetLastError() << std::endl;
 		}
 	}
-	else if(选择 == 2) {
-	
+	else if (选择 == 2) {
+
 		Psmbois wd = (Psmbois)数据;
 		BOOL success = DeviceIoControl(
 			hDevice,
@@ -135,9 +135,6 @@ void SendIoctl(HANDLE hDevice, DWORD ioctlCode, PVOID 数据,int 选择) {
 }
 
 int main() {
-
-
-
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 获取当前工作目录
 	char currentPath[MAX_PATH];
@@ -224,14 +221,9 @@ int main() {
 	RegCloseKey(hKey);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	HANDLE hDevice = CreateFile(
-		L"\\\\.\\MMMMMu",  // 设备名
-
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	HANDLE hDevice = CreateFile(
 		L"\\\\.\\HardwareSNModify",  // 设备名
-
 		GENERIC_WRITE | GENERIC_READ,
 		0,
 		nullptr,
@@ -255,7 +247,7 @@ int main() {
 	strncpy_s(diskData.product_revision_buffer, "REVISION_1", sizeof(diskData.product_revision_buffer));
 
 	// 发送控制代码 ioctl_disk_customize_serial
-	SendIoctl(hDevice, ioctl_disk_customize_serial, &diskData,1);
+	SendIoctl(hDevice, ioctl_disk_customize_serial, &diskData, 1);
 	// 设置并发送 ioctl_disk_random_guid 控制代码
 	diskData.guid_state = true;
 	SendIoctl(hDevice, ioctl_disk_random_guid, &diskData, 1);
@@ -294,13 +286,9 @@ int main() {
 	// 发送 ioctl_arp_table_handle 控制代码
 	SendIoctl(hDevice, ioctl_arp_table_handle, &NICd, 4);
 
-
 	CloseHandle(hDevice);
 
 
 	system("pause");
-
-	CloseHandle(hDevice);
-
 	return 0;
 }
