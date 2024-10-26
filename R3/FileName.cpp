@@ -135,6 +135,12 @@ void SendIoctl(HANDLE hDevice, DWORD ioctlCode, PVOID 数据,int 选择) {
 }
 
 int main() {
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+>>>>>>> 95eeec5e501755feb67b7861c547ebcb53107bf2
+
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 获取当前工作目录
@@ -224,9 +230,19 @@ int main() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	HANDLE hDevice = CreateFile(
+		L"\\\\.\\MMMMMu",  // 设备名
+<<<<<<< HEAD
 
 	HANDLE hDevice = CreateFile(
 		L"\\\\.\\HardwareSNModify",  // 设备名
+
+=======
+=======
+	HANDLE hDevice = CreateFile(
+		L"\\\\.\\HardwareSNModify",  // 设备名
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
+>>>>>>> 95eeec5e501755feb67b7861c547ebcb53107bf2
 		GENERIC_WRITE | GENERIC_READ,
 		0,
 		nullptr,
@@ -289,12 +305,27 @@ int main() {
 	// 发送 ioctl_arp_table_handle 控制代码
 	SendIoctl(hDevice, ioctl_arp_table_handle, &NICd, 4);
 
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+>>>>>>> 95eeec5e501755feb67b7861c547ebcb53107bf2
 	CloseHandle(hDevice);
 
 
 	system("pause");
 
+<<<<<<< HEAD
 	CloseHandle(hDevice);
 
+=======
+=======
+
+
+
+
+	CloseHandle(hDevice);
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
+>>>>>>> 95eeec5e501755feb67b7861c547ebcb53107bf2
 	return 0;
 }
