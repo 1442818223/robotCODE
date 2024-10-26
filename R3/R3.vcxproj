@@ -124,7 +124,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+<<<<<<< HEAD
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+=======
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

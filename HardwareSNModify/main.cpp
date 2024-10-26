@@ -167,7 +167,11 @@ extern "C" void DriverUnload(PDRIVER_OBJECT driver)
 	if (g_device_object)
 	{
 		UNICODE_STRING symbolic_link;
+<<<<<<< HEAD
 		RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\MMMMMu");
+=======
+		RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\HardwareModify");
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
 		IoDeleteSymbolicLink(&symbolic_link);
 
 		IoDeleteDevice(driver->DeviceObject);
@@ -188,12 +192,20 @@ extern "C" NTSTATUS DriverEntry(PDRIVER_OBJECT driver, PUNICODE_STRING unicode)
 	//PDRIVER_OBJECT doDriver = IoPnpDriverObject;
 
 	UNICODE_STRING device_name;
+<<<<<<< HEAD
 	RtlInitUnicodeString(&device_name, L"\\Device\\MMMMMu");
+=======
+	RtlInitUnicodeString(&device_name, L"\\Device\\HardwareModify");
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
 	NTSTATUS status = IoCreateDevice(driver, 0, &device_name, FILE_DEVICE_UNKNOWN, FILE_DEVICE_SECURE_OPEN, FALSE, &g_device_object);
 	if (!NT_SUCCESS(status) || g_device_object == nullptr) return STATUS_UNSUCCESSFUL;
 
 	UNICODE_STRING symbolic_link;
+<<<<<<< HEAD
 	RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\MMMMMu");
+=======
+	RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\HardwareModify");
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
 	status = IoCreateSymbolicLink(&symbolic_link, &device_name);
 	if (!NT_SUCCESS(status))
 	{

@@ -135,6 +135,7 @@ void SendIoctl(HANDLE hDevice, DWORD ioctlCode, PVOID 数据,int 选择) {
 }
 
 int main() {
+<<<<<<< HEAD
 
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,6 +228,10 @@ int main() {
 
 	HANDLE hDevice = CreateFile(
 		L"\\\\.\\MMMMMu",  // 设备名
+=======
+	HANDLE hDevice = CreateFile(
+		L"\\\\.\\HardwareSNModify",  // 设备名
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
 		GENERIC_WRITE | GENERIC_READ,
 		0,
 		nullptr,
@@ -289,10 +294,18 @@ int main() {
 	// 发送 ioctl_arp_table_handle 控制代码
 	SendIoctl(hDevice, ioctl_arp_table_handle, &NICd, 4);
 
+<<<<<<< HEAD
 	CloseHandle(hDevice);
 
 
 	system("pause");
 
+=======
+
+
+
+
+	CloseHandle(hDevice);
+>>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
 	return 0;
 }
