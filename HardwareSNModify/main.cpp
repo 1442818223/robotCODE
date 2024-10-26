@@ -88,29 +88,29 @@ NTSTATUS ControlIrp(PDEVICE_OBJECT device, PIRP irp)
 	// 硬盘
 	switch (io->Parameters.DeviceIoControl.IoControlCode)
 	{
-	case ioctl_disk_customize_serial:// 设置自定义硬盘序列号和其他信息。
+	case ioctl_disk_customize_serial:
 		n_disk::disk_mode = common._disk.disk_mode;
 		RtlCopyMemory(n_disk::disk_serial_buffer, common._disk.serial_buffer, 100);
 		RtlCopyMemory(n_disk::disk_product_buffer, common._disk.product_buffer, 100);
 		RtlCopyMemory(n_disk::disk_product_revision_buffer, common._disk.product_revision_buffer, 100);
 		break;
-	case ioctl_disk_random_serial://随机化磁盘序列号。
+	case ioctl_disk_random_serial:
 		n_disk::disk_mode = common._disk.disk_mode;
 		break;
-	case ioctl_disk_null_serial://将磁盘序列号清空。
+	case ioctl_disk_null_serial:
 		n_disk::disk_mode = common._disk.disk_mode;
 		break;
-	case ioctl_disk_random_guid: //随机化磁盘 GUID。
+	case ioctl_disk_random_guid:
 		n_disk::disk_guid_random = common._disk.guid_state;
 		break;
-	case ioctl_disk_null_volumn: //清空卷信息。
+	case ioctl_disk_null_volumn:
 		n_disk::disk_volumn_clean = common._disk.volumn_state;
 		break;
-	case ioctl_disk_disable_smart://禁用硬盘的 SMART（自我监控、分析与报告技术）。
+	case ioctl_disk_disable_smart:
 		n_disk::disable_smart();
 		n_disk::disk_smart_disable = true;
 		break;
-	case ioctl_disk_change_serial://更改硬盘的序列号。
+	case ioctl_disk_change_serial:
 		RtlCopyMemory(n_disk::disk_serial_buffer, common._disk.serial_buffer, 100);
 		n_disk::change_disk_serials();
 		break;
@@ -120,12 +120,12 @@ NTSTATUS ControlIrp(PDEVICE_OBJECT device, PIRP irp)
 	switch (io->Parameters.DeviceIoControl.IoControlCode)
 	{
 	case ioctl_smbois_customize:
-		RtlCopyMemory(n_smbios::smbois_vendor, common._smbois.vendor, 100);//保存硬件厂商信息。
-		RtlCopyMemory(n_smbios::smbois_version, common._smbois.version, 100);//保存硬件的版本信息。
-		RtlCopyMemory(n_smbios::smbois_date, common._smbois.date, 100); //保存硬件出厂日期。
-		RtlCopyMemory(n_smbios::smbois_manufacturer, common._smbois.manufacturer, 100);  //保存制造商信息。
-		RtlCopyMemory(n_smbios::smbois_product_name, common._smbois.product_name, 100);  //保存硬件产品名称。
-		RtlCopyMemory(n_smbios::smbois_serial_number, common._smbois.serial_number, 100); //保存硬件序列号。
+		RtlCopyMemory(n_smbios::smbois_vendor, common._smbois.vendor, 100);
+		RtlCopyMemory(n_smbios::smbois_version, common._smbois.version, 100);
+		RtlCopyMemory(n_smbios::smbois_date, common._smbois.date, 100);
+		RtlCopyMemory(n_smbios::smbois_manufacturer, common._smbois.manufacturer, 100);
+		RtlCopyMemory(n_smbios::smbois_product_name, common._smbois.product_name, 100);
+		RtlCopyMemory(n_smbios::smbois_serial_number, common._smbois.serial_number, 100);
 		n_smbios::spoofer_smbios();
 		break;
 	}
@@ -167,11 +167,9 @@ extern "C" void DriverUnload(PDRIVER_OBJECT driver)
 	if (g_device_object)
 	{
 		UNICODE_STRING symbolic_link;
-<<<<<<< HEAD
+
 		RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\MMMMMu");
-=======
-		RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\HardwareModify");
->>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
+
 		IoDeleteSymbolicLink(&symbolic_link);
 
 		IoDeleteDevice(driver->DeviceObject);
@@ -192,20 +190,12 @@ extern "C" NTSTATUS DriverEntry(PDRIVER_OBJECT driver, PUNICODE_STRING unicode)
 	//PDRIVER_OBJECT doDriver = IoPnpDriverObject;
 
 	UNICODE_STRING device_name;
-<<<<<<< HEAD
 	RtlInitUnicodeString(&device_name, L"\\Device\\MMMMMu");
-=======
-	RtlInitUnicodeString(&device_name, L"\\Device\\HardwareModify");
->>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
 	NTSTATUS status = IoCreateDevice(driver, 0, &device_name, FILE_DEVICE_UNKNOWN, FILE_DEVICE_SECURE_OPEN, FALSE, &g_device_object);
 	if (!NT_SUCCESS(status) || g_device_object == nullptr) return STATUS_UNSUCCESSFUL;
 
 	UNICODE_STRING symbolic_link;
-<<<<<<< HEAD
 	RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\MMMMMu");
-=======
-	RtlInitUnicodeString(&symbolic_link, L"\\DosDevices\\HardwareModify");
->>>>>>> c438234daf6bd24f74134f4034f9e4545b635e96
 	status = IoCreateSymbolicLink(&symbolic_link, &device_name);
 	if (!NT_SUCCESS(status))
 	{
